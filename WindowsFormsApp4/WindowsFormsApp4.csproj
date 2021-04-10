@@ -84,5 +84,8 @@
       <Version>4.2.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="web\index.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

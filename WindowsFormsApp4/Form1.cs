@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Grapevine.Interfaces.Server;
+﻿using Grapevine.Interfaces.Server;
 using Grapevine.Server;
 using Grapevine.Server.Attributes;
 using Grapevine.Shared;
+using System;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace WindowsFormsApp4
@@ -19,7 +13,7 @@ namespace WindowsFormsApp4
     public partial class Form1 : Form
     {
 
-        private RestServer myServer;
+        private RestServer server;
 
         public Form1()
         {
@@ -55,87 +49,31 @@ namespace WindowsFormsApp4
 
             ServerSettings settings = new ServerSettings()
             {
-                //Host = "*",
-                //Port = "8080",
                 Port = maskedTextBox1.Text,
-                PublicFolder = new PublicFolder("Web")
+                PublicFolder = new PublicFolder("web")
             };
 
-            myServer = new RestServer(settings);
-            myServer.Start();
+            server = new RestServer(settings);
+            server.Start();
 
             button1.Enabled = false;
             button2.Enabled = true;
 
-            //////SpendLongTimeメソッドを実行するための
-            //////Threadオブジェクトを作成する
-            //System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(SpendLongTime));
-            //////スレッドを開始する
-            //t.Start();
-
-            //ServerSettings settings = new ServerSettings()
-            //{
-            //    //Host = "*",
-            //    Port = "8080",
-            //    PublicFolder = new PublicFolder("Web")
-            //};
-
-            //using (var server = new RestServer(settings))
-            ////using (var server = new RestServer())
-            //{
-            //    //server.LogToConsole();
-
-            //    //server.OnBeforeStart = () => server.Logger.Trace("Starting Server");
-            //    //server.OnAfterStart = () => server.Logger.Trace("Server Started");
-            //    //server.OnBeforeStop = () => server.Logger.Trace("Stopping Server");
-            //    //server.OnAfterStop = () => server.Logger.Trace("Server Stopped");
-            //    //server.Router.BeforeRouting += ctx => server.Logger.Debug("Before Routing!!");
-            //    //server.Router.BeforeRouting += ctx => server.Logger.Debug("After Routing!!");
-
-            //    server.Start();
-            //    //Console.ReadLine();
-            //    //server.Stop();
-
-            //    //while (true)
-            //    //{
-            //    //    ;
-            //    //}
-            //}
         }
 
-        //private void SpendLongTime()
-        //{
-        //    ServerSettings settings = new ServerSettings()
-        //    {
-        //        //Host = "*",
-        //        Port = "8080",
-        //        PublicFolder = new PublicFolder("Web")
-        //    };
-
-        //    using (var server = new RestServer(settings))
-        //    //using (var server = new RestServer())
-        //    {
-        //        server.Start();
-        //        while (true)
-        //        {
-        //            ;
-        //        }
-        //    }
-
-        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
-            myServer.Stop();
+            server.Stop();
             button1.Enabled = true;
             button2.Enabled = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (myServer != null)
+            if (server != null)
             {
-                myServer.Stop();
+                server.Stop();
             }
         }
     }
@@ -143,13 +81,6 @@ namespace WindowsFormsApp4
     [RestResource]
     public class TestResource
     {
-        //[RestRoute(HttpMethod = HttpMethod.ALL, PathInfo = "^.*$")]
-        //public IHttpContext LevelOne(IHttpContext context)
-        //{
-        //    // throw new Exception("Killing It!");
-        //    return context;
-        //}
-
 
         [RestRoute(HttpMethod = HttpMethod.GET, PathInfo = "/")]
         public IHttpContext Root(IHttpContext context)
