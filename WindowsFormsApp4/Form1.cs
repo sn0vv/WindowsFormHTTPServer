@@ -20,7 +20,9 @@ namespace WindowsFormsApp4
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// [TextBoxに数字しか入力できないようにする - .NET Tips (VB.NET,C#...)](https://dobon.net/vb/dotnet/control/numerictextbox.html)
+        /// </summary>
         private void Form1_Load(object sender, EventArgs e)
         {
             //数字と空白しか入力できないようにする
@@ -78,6 +80,9 @@ namespace WindowsFormsApp4
         }
     }
 
+    /// <summary>
+    /// [Route Not Found For GET / - Can't serve default index.html · Issue #209 · scottoffen/grapevine-legacy](https://github.com/scottoffen/grapevine-legacy/issues/209)
+    /// </summary>
     [RestResource]
     public class TestResource
     {
